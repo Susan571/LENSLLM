@@ -3,7 +3,7 @@ from sklearn.linear_model import LinearRegression
 from pandarallel import pandarallel
 import pandas as pd
 
-from fit_law import fit_our_law, our_law_transform, fit_rec_law, rec_law_transform
+from fit_law import lens_llm_transform, rec_llm_transform, fit_lens_llm, fit_rec_llm
 
 pandarallel.initialize(progress_bar=False)
 
@@ -54,10 +54,10 @@ def rec_fit_select(data, max_data_num, predict_data_num):
         train_x = np.log(columns_wo_zero)
         train_y = np.log(row.to_numpy(dtype=np.float64))
 
-        params, loss = fit_rec_law(train_x, train_y)
+        params, loss = fit_rec_llm(train_x, train_y)
 
         test_x = np.log(predict_data_num)
-        pred_y = np.exp(rec_law_transform(test_x, *params))
+        pred_y = np.exp(rec_llm_transform(test_x, *params))
     
         return pred_y.item()
     
@@ -91,32 +91,57 @@ def nlp_fit_select(data, metrics=['PL_alpha', 'E_TPL_lambda'], weights=None):
     
     return data['rank'].to_numpy(dtype=np.int32), data['score'].to_numpy(dtype=np.float32)
 
-def our_fit_select(data, max_data_num, predict_data_num, F_terms):
+def our_fit_select(data, max_data_num, predict_data_num, ntk_matrices, f0_X, y, early_stopping_times=None):
     """
-    Select the best model based on our law
+    Select the best model based on LensLLM
+    Args:
+        data: DataFrame containing test losses
+        max_data_num: maximum dataset size
+        predict_data_num: target dataset size for prediction
+        ntk_matrices: pre-computed NTK matrices for each model
+        f0_X: initial outputs from models
+        y: true labels
+        early_stopping_times: if provided, uses these fixed t values for phase-fitting
     """
     columns = [0] + [int(max_data_num / 2**i) for i in range(int(np.log2(max_data_num / 200)), -1, -1)]
 
     def _func(row_data):
-        row, F_term = row_data
+        row, ntk_matrix, f0, early_t = row_data
         columns_wo_zero = [1e-10] + columns[1:]
         train_x = np.log(columns_wo_zero)
         train_y = np.log(row.to_numpy(dtype=np.float64))
 
-        # Fit the LensLLM model using the pre-computed F_term
-        params, loss = fit_lens_llm(train_x, train_y, F_term)
+        if early_stopping_times is not None:
+            # Case 1: Phase-fitting with fixed t
+            params, loss = fit_lens_llm(
+                train_x, train_y, f0, y, 
+                ntk_matrix, 
+                case="phase_fitting",
+                t_fixed=early_t
+            )
+        else:
+            # Case 2: Test loss prediction with optimized t
+            params, loss = fit_lens_llm(
+                train_x, train_y, f0, y,
+                ntk_matrix,
+                case="prediction"
+            )
 
-        # Predict for the target dataset size
+        # Predict for target dataset size
         test_x = np.log(predict_data_num)
-        pred_y = np.exp(lens_llm_transform(test_x, *params, F_term))
+        pred_y = np.exp(lens_llm_transform(test_x, *params, f0, y, ntk_matrix))
     
         return pred_y.item()
     
-    # Combine row data with corresponding F_terms for parallel processing
-    row_data = zip(data[columns].itertuples(index=False), F_terms)
+    # Combine row data with corresponding matrices and parameters
+    row_data = zip(
+        data[columns].itertuples(index=False), 
+        ntk_matrices,
+        f0_X,
+        early_stopping_times if early_stopping_times else [None] * len(data)
+    )
+    
     data['pred'] = pd.Series([_func(rd) for rd in row_data])
-
-    # Rank models based on predictions
     data['rank'] = data['pred'].rank(ascending=True)
 
     return data['rank'].to_numpy(dtype=np.int32), data['pred'].to_numpy(dtype=np.float32)
