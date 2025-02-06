@@ -13,6 +13,7 @@ LensLLM is a framework for analyzing and optimizing large language model trainin
 
 ```
 .
+├── Analysis.ipynb     # Analysis notebook with figures
 ├── train.py           # Training loop with NTK tracking
 ├── model_select.py    # Model selection strategies
 ├── fit_law.py         # Power law and LensLLM fitting
