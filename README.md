@@ -41,8 +41,6 @@ LensLLM is a framework for analyzing fine-tuning mechanism and choosing large la
 
 If you use this code in your research, please cite our paper:
 
-[LENSLLM: Unveiling Fine-Tuning Dynamics for LLM Selection](https://arxiv.org/abs/2505.03793)
-
 ```bibtex
 @article{zeng2025lensllm,
   title={LENSLLM: Unveiling Fine-Tuning Dynamics for LLM Selection},
