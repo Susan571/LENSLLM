@@ -1,4 +1,4 @@
-# [LENSLLM: Unveiling Fine-Tuning Dynamics for LLM Selection](https://arxiv.org/abs/2505.03793)
+# <a href="https://arxiv.org/abs/2505.03793" style="color: black; text-decoration: none;">LENSLLM: Unveiling Fine-Tuning Dynamics for LLM Selection</a>
 
 LensLLM is a framework for analyzing fine-tuning mechanism and choosing large language model without further training through Neural Tangent Kernel (NTK) theory.
 
