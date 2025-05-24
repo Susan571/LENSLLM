@@ -1,6 +1,6 @@
-# LensLLM
+# LENSLLM: Unveiling Fine-Tuning Dynamics for LLM Selection
 
-LensLLM is a framework for analyzing and optimizing large language model training through Neural Tangent Kernel (NTK) theory.
+LensLLM is a framework for analyzing fine-tuning mechanism and choosing large language model without further training through Neural Tangent Kernel (NTK) theory.
 
 ## Features
 
