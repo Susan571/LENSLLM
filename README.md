@@ -11,11 +11,13 @@ The proliferation of open-sourced Large Language Models (LLMs) and diverse downs
 
 In this work, we propose a novel theoretical framework that provides a proper lens to assess the generalization capabilities of LLMs, thereby enabling accurate and efficient LLM selection for downstream applications. Our key contributions include:
 
-&nbsp;&nbsp;&nbsp;&nbsp;• Deriving a **PAC-Bayesian Generalization Bound** that unveils the fine-tuning dynamics of LLMs
+<div style="margin-left: 40px;">
+• Deriving a **PAC-Bayesian Generalization Bound** that unveils the fine-tuning dynamics of LLMs
 
-&nbsp;&nbsp;&nbsp;&nbsp;• Introducing **LENSLLM**, a Neural Tangent Kernel (NTK)-based Rectified Scaling Model that enables accurate performance predictions across diverse tasks while maintaining computational efficiency
+• Introducing **LENSLLM**, a Neural Tangent Kernel (NTK)-based Rectified Scaling Model that enables accurate performance predictions across diverse tasks while maintaining computational efficiency
 
-&nbsp;&nbsp;&nbsp;&nbsp;• Demonstrating through extensive empirical results on three large-scale benchmarks that our model achieves **up to 91.1% accuracy** and reduces **up to 88.5% computational cost** in LLM selection, outperforming five state-of-the-art methods
+• Demonstrating through extensive empirical results on three large-scale benchmarks that our model achieves **up to 91.1% accuracy** and reduces **up to 88.5% computational cost** in LLM selection, outperforming five state-of-the-art methods
+</div>
 
 ## 🔍 Understanding Phase Transitions in LLM Fine-tuning
 
