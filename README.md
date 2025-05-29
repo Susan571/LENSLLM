@@ -19,7 +19,7 @@ In this work, we propose a novel theoretical framework that provides a proper le
 
 ## 🔍 Understanding Phase Transitions in LLM Fine-tuning
 
-Our analysis uncovers two distinct phases in the fine-tuning dynamics of Large Language Models (LLMs), each with unique implications for model selection. These phases—marked by shifts in sensitivity, performance scaling, and Neural Tangent Kernel (NTK) evolution—play a critical role in understanding and predicting model behavior.
+We analyze two distinct phases in the fine-tuning dynamics of Large Language Models (LLMs), each with unique implications for model selection. These phases—marked by shifts in sensitivity, performance scaling, and Neural Tangent Kernel (NTK) evolution—play a critical role in understanding and predicting model behavior.
 
 <div align="center">
 
@@ -36,6 +36,8 @@ Our analysis uncovers two distinct phases in the fine-tuning dynamics of Large L
 | **Power Phase** | Later stage where performance scales predictably | • Stable and predictable performance improvements<br>• Power-law relationship between data size and loss<br>• Stabilized NTK structure<br>• Consistent behavior across tasks |
 </div>
 
+*Table: Comparison of the pre-power and power phases during LLM fine-tuning.*
+
 ### Why This Matters for Model Selection
 
 Understanding and identifying these phases enables:
@@ -44,7 +46,7 @@ Understanding and identifying these phases enables:
 3. **Improved efficiency**: Fine-tuning strategies can be tailored to the phase, reducing redundant computation.
 4. **Theoretical interpretability**: NTK stability serves as a signal for transition detection.
 
-Our **LENSLLM** framework explicitly models both phases, offering accurate performance estimation and phase-adaptive model selection across a range of fine-tuning scenarios.
+Our LENSLLM framework explicitly models both phases, offering accurate performance estimation and phase-adaptive model selection across a range of fine-tuning scenarios.
 
 ## 📊 Theoretical Foundation: PAC-Bayesian Generalization Bound
 
@@ -56,7 +58,7 @@ $$
 
 Here, $C$ and $\beta$ are constants that depend on the model architecture and downstream task.
 
-This bound serves as the theoretical basis for characterizing the **two distinct phases** observed during LLM fine-tuning:
+This bound serves as the theoretical basis for characterizing the two distinct phases observed during LLM fine-tuning:
 
 <div align="center">
 
@@ -66,14 +68,16 @@ This bound serves as the theoretical basis for characterizing the **two distinct
 | **Power Phase** | $Cn^{-\beta}$ | • Lower Hessian values<br>• Stabilized gradients<br>• Predictable scaling behavior | • Consistent improvements<br>• Task-agnostic trends<br>• Scalable performance across data regimes | • Greater data efficiency<br>• Robust to learning rate choices<br>• Fewer training epochs needed |
 </div>
 
+*Table: Comparison of the pre-power and power phases during LLM fine-tuning from the lens of PAC-Bayesian Generalization Bound.*
+
 ### 🔄 Phase Transition Dynamics and the LENSLLM Framework
 
 Our theoretical analysis reveals a critical phase transition in LLM fine-tuning, characterized by a shift in the dominant term of the generalization bound:
 
-- **From**: $O(n^{-\frac{3}{4}})$ — governing the early, unstable fine-tuning regime  
-- **To**: $Cn^{-\beta}$ — capturing the later, stable scaling behavior  
+- From: $O(n^{-\frac{3}{4}})$ — governing the early, unstable fine-tuning regime  
+- To: $Cn^{-\beta}$ — capturing the later, stable scaling behavior  
 
-This transition reflects a **reduction in Hessian magnitude** and **parameter sensitivity**, signaling a progression from chaotic to stable learning dynamics.
+This transition reflects a reduction in Hessian magnitude and parameter sensitivity, signaling a progression from chaotic to stable learning dynamics.
 
 To model this transition, we introduce **LENSLLM**, a Hessian-aware rectified scaling framework that captures the evolving dynamics of fine-tuning and enables accurate generalization prediction and efficient model selection across diverse tasks.
 
