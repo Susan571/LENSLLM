@@ -13,25 +13,15 @@ In this work, we propose a novel theoretical framework that provides a proper le
 
 ## 🔍 Understanding Fine-tuning Dynamics for LLM Selection: Pre-power and Power Phases
 
-Our analysis reveals two distinct phases in LLM fine-tuning dynamics that are crucial for model selection:
+Our analysis reveals two distinct phases in LLM fine-tuning dynamics that are crucial for model selection. These phases exhibit fundamentally different behaviors in terms of model sensitivity, performance scaling, and NTK evolution:
 
-### Pre-power Phase
-The pre-power phase represents the initial stage of fine-tuning where models exhibit rapid performance improvements. During this phase:
-- Models show high sensitivity to parameter updates
-- Performance improvements are non-linear and often dramatic
-- The NTK matrix undergoes significant changes
-- Model behavior is highly dynamic and task-specific
-
-### Power Phase
-The power phase emerges after the initial rapid improvements, characterized by:
-- More stable and predictable performance scaling
-- Linear or power-law relationship between data size and performance
-- Stabilized NTK matrix structure
-- More consistent behavior across different tasks
+| Phase | Description | Characteristics |
+|-------|-------------|-----------------|
+| **Pre-power Phase** | The initial stage of fine-tuning where models exhibit rapid performance improvements | • Models show high sensitivity to parameter updates<br>• Performance improvements are non-linear and often dramatic<br>• The NTK matrix undergoes significant changes<br>• Model behavior is highly dynamic and task-specific |
+| **Power Phase** | Emerges after the initial rapid improvements | • More stable and predictable performance scaling<br>• Linear or power-law relationship between data size and performance<br>• Stabilized NTK matrix structure<br>• More consistent behavior across different tasks |
 
 ![Model Comparison](Figure/model_comparison.png)
-
-*Figure: Comparison of different model selection approaches across pre-power and power phases. Our LENSLLM framework demonstrates superior performance in both phases, with particularly strong results in the pre-power phase where traditional methods often struggle.*
+*Figure: Comparison of model selection approaches across different phases. Our LENSLLM framework demonstrates superior performance in both pre-power and power phases, with particularly strong results in the pre-power phase where traditional methods often struggle.*
 
 Understanding these phases is crucial for LLM selection because:
 1. Different models may enter the power phase at different data scales
@@ -43,27 +33,18 @@ Our LENSLLM framework explicitly models both phases, enabling more accurate perf
 
 ## 📊 Theoretical Foundation: PAC-Bayesian Generalization Bound
 
-Our theoretical analysis reveals a fundamental connection between the fine-tuning phases and model generalization through a novel PAC-Bayesian bound. For any $\epsilon > 0$, with probability over 0.99, under our established assumptions, the generalization error bound takes the form:
+Our theoretical analysis reveals a fundamental connection between these phases and model generalization through a novel PAC-Bayesian bound. For any $\epsilon > 0$, with probability over 0.99, under our established assumptions, the generalization error bound takes the form:
 
 $$L(f_{\hat{w}}) \leq (1 + \epsilon)\hat{L}(f_{\hat{w}}) + C_3 n^{-\beta_3} + O(n^{-\frac{3}{4}})$$
 
 where $C_3 = \sqrt{C\cdot l \cdot C_2}$ and $\beta_3 = \frac{\beta_2+1}{2}$ are model and task-dependent constants.
 
-### Connection to Fine-tuning Phases
-
 This bound provides a theoretical foundation for understanding the two distinct phases of fine-tuning:
 
-#### Pre-power Phase
-- Characterized by the $O(n^{-\frac{3}{4}})$ term dominating the error bound
-- High Hessian values indicate significant parameter sensitivity
-- Performance improvements are gradual and require careful tuning
-- Substantial data is needed for reliable model adaptation
-
-#### Power Phase
-- Dominated by the $C_3n^{-\beta_3}$ term in the error bound
-- Reduced Hessian values lead to enhanced stability
-- Enables more aggressive parameter updates
-- Improved data efficiency in learning
+| Phase | Error Scaling | Characteristics | Model Behavior | Data Requirements |
+|-------|--------------|-----------------|----------------|-------------------|
+| **Pre-power Phase** | $O(n^{-\frac{3}{4}})$ | • High Hessian values<br>• Significant parameter sensitivity<br>• Non-linear improvements | • Gradual performance improvements<br>• High sensitivity to updates<br>• Task-specific behavior | • Substantial data needed<br>• Careful tuning required<br>• More training iterations |
+| **Power Phase** | $C_3n^{-\beta_3}$ | • Reduced Hessian values<br>• Enhanced stability<br>• Linear/power-law scaling | • Stable performance scaling<br>• Consistent behavior<br>• Task-agnostic patterns | • Improved data efficiency<br>• More aggressive updates<br>• Fewer training iterations |
 
 #### Phase Transition
 The transition between phases is mathematically captured by the change in dominant terms:
