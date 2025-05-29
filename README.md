@@ -21,19 +21,15 @@ In this work, we propose a novel theoretical framework that provides a proper le
 
 Our analysis uncovers two distinct phases in the fine-tuning dynamics of Large Language Models (LLMs), each with unique implications for model selection. These phases—marked by shifts in sensitivity, performance scaling, and Neural Tangent Kernel (NTK) evolution—play a critical role in understanding and predicting model behavior.
 
-![Model Comparison](Figure/model_comparison.png)  
+<div align="center">
+![Model Comparison](Figure/model_comparison.png){width=70%}  
 *Figure: Fine-tuning test loss ($L$) as a function of training sample size ($D$). The curve highlights an initial pre-power phase at smaller $D$, followed by a power phase exhibiting a clear linear trend in log-log scale.*
+</div>
 
-| **Phase**          | **Description**                                     | **Key Characteristics**                                                                 |
-|--------------------|-----------------------------------------------------|------------------------------------------------------------------------------------------|
-| **Pre-power Phase** | Early stage of fine-tuning with rapid performance shifts | - High sensitivity to parameter updates  
-- Non-linear, often dramatic improvements  
-- Significant NTK matrix evolution  
-- Dynamic and task-specific behavior |
-| **Power Phase**     | Later stage where performance scales predictably      | - Stable and predictable performance improvements  
-- Power-law relationship between data size and loss  
-- Stabilized NTK structure  
-- Consistent behavior across tasks |
+| **Phase** | **Description** | **Key Characteristics** |
+|:----------|:----------------|:------------------------|
+| **Pre-power Phase** | Early stage of fine-tuning with rapid performance shifts | • High sensitivity to parameter updates<br>• Non-linear, often dramatic improvements<br>• Significant NTK matrix evolution<br>• Dynamic and task-specific behavior |
+| **Power Phase** | Later stage where performance scales predictably | • Stable and predictable performance improvements<br>• Power-law relationship between data size and loss<br>• Stabilized NTK structure<br>• Consistent behavior across tasks |
 
 ### Why This Matters for Model Selection
 
@@ -57,22 +53,10 @@ Here, $C$ and $\beta$ are constants that depend on the model architecture and do
 
 This bound serves as the theoretical basis for characterizing the **two distinct phases** observed during LLM fine-tuning:
 
-| **Phase**          | **Error Scaling**         | **Key Characteristics**                                                                 | **Model Behavior**                                                              | **Data Requirements**                                                    |
-|--------------------|---------------------------|------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------|---------------------------------------------------------------------------|
-| **Pre-power Phase** | $O(n^{-\frac{3}{4}})$      | • Large Hessian values  
-• High sensitivity to parameter changes  
-• Non-linear performance gains | • Gradual improvements  
-• Task-dependent variability  
-• Unstable convergence patterns | • Requires more data  
-• Sensitive to hyperparameters  
-• Slower convergence |
-| **Power Phase**     | $Cn^{-\beta}$              | • Lower Hessian values  
-• Stabilized gradients  
-• Predictable scaling behavior | • Consistent improvements  
-• Task-agnostic trends  
-• Scalable performance across data regimes | • Greater data efficiency  
-• Robust to learning rate choices  
-• Fewer training epochs needed |
+| **Phase** | **Error Scaling** | **Key Characteristics** | **Model Behavior** | **Data Requirements** |
+|:----------|:-----------------|:------------------------|:-------------------|:---------------------|
+| **Pre-power Phase** | $O(n^{-\frac{3}{4}})$ | • Large Hessian values<br>• High sensitivity to parameter changes<br>• Non-linear performance gains | • Gradual improvements<br>• Task-dependent variability<br>• Unstable convergence patterns | • Requires more data<br>• Sensitive to hyperparameters<br>• Slower convergence |
+| **Power Phase** | $Cn^{-\beta}$ | • Lower Hessian values<br>• Stabilized gradients<br>• Predictable scaling behavior | • Consistent improvements<br>• Task-agnostic trends<br>• Scalable performance across data regimes | • Greater data efficiency<br>• Robust to learning rate choices<br>• Fewer training epochs needed |
 
 ### 🔄 Phase Transition Dynamics and the LENSLLM Framework
 
@@ -106,34 +90,43 @@ We validate our theoretical framework through comprehensive experiments across a
 
 ---
 
-![Curve Fitting Analysis](Figure/combined_plots.png)  
+<div align="center">
+![Curve Fitting Analysis](Figure/combined_plots.png){width=70%}  
 *Figure: Performance comparison showing the superior effectiveness of LENSLLM (blue squares) across OPT-1.3B, GPT-2, and T5-Base on the FLAN, Wikitext, and Gigaword datasets. LENSLLM consistently achieves lower RMSE values compared to the Rectified Scaling Law (red triangles), with narrower error bands indicating more stable performance.*
+</div>
 
-| **Model** | \multicolumn{2}{c|}{**Wikitext**} | \multicolumn{2}{c|}{**FLAN**} | \multicolumn{2}{c|}{**Gigaword**} |
-|----------|--------|------|--------|------|----------|--------|
-|          | **Ours** | Rect | **Ours** | Rect | **Ours** | Rect |
-| OPT-350M        | **0.20** | 1.10 | **0.32** | 1.50 | **0.26** | 0.98 |
-| OPT-1.3B        | **0.32** | 1.14 | **0.32** | 1.20 | **0.28** | 0.99 |
-| OPT-6.7B        | **0.26** | 1.32 | **0.26** | 1.31 | **0.26** | 1.46 |
-| T5-Small        | **0.35** | 1.01 | **0.28** | 1.30 | **0.30** | 1.27 |
-| T5-Base         | **0.32** | 1.30 | **0.26** | 1.26 | **0.30** | 0.94 |
-| Cerebras-256M   | **0.24** | 1.27 | **0.22** | 1.10 | **0.33** | 1.30 |
-| Cerebras-1.3B   | **0.26** | 1.18 | **0.32** | 1.00 | **0.28** | 1.00 |
-| mT5-Base        | **0.26** | 1.17 | **0.32** | 1.22 | **0.17** | 1.07 |
-| mT5-Large       | **0.28** | 1.44 | **0.32** | 1.07 | **0.28** | 1.10 |
-| BART-Base       | **0.30** | 1.27 | **0.30** | 0.96 | **0.26** | 0.99 |
-| BART-Large      | **0.17** | 1.31 | **0.28** | 0.87 | **0.36** | 1.14 |
-| GPT-2           | **0.30** | 1.30 | **0.30** | 1.23 | **0.26** | 1.33 |
-| LaMini-124M     | **0.28** | 1.01 | **0.35** | 1.00 | **0.30** | 1.15 |
-| LaMini-774M     | **0.32** | 1.14 | **0.28** | 1.13 | **0.28** | 1.19 |
+<div align="center">
+| **Model** | **Wikitext** | **FLAN** | **Gigaword** |
+|:----------|:------------:|:--------:|:------------:|
+| | Ours | Rect | Ours | Rect | Ours | Rect |
+| OPT-350M | **0.20** | 1.10 | **0.32** | 1.50 | **0.26** | 0.98 |
+| OPT-1.3B | **0.32** | 1.14 | **0.32** | 1.20 | **0.28** | 0.99 |
+| OPT-6.7B | **0.26** | 1.32 | **0.26** | 1.31 | **0.26** | 1.46 |
+| T5-Small | **0.35** | 1.01 | **0.28** | 1.30 | **0.30** | 1.27 |
+| T5-Base | **0.32** | 1.30 | **0.26** | 1.26 | **0.30** | 0.94 |
+| Cerebras-256M | **0.24** | 1.27 | **0.22** | 1.10 | **0.33** | 1.30 |
+| Cerebras-1.3B | **0.26** | 1.18 | **0.32** | 1.00 | **0.28** | 1.00 |
+| mT5-Base | **0.26** | 1.17 | **0.32** | 1.22 | **0.17** | 1.07 |
+| mT5-Large | **0.28** | 1.44 | **0.32** | 1.07 | **0.28** | 1.10 |
+| BART-Base | **0.30** | 1.27 | **0.30** | 0.96 | **0.26** | 0.99 |
+| BART-Large | **0.17** | 1.31 | **0.28** | 0.87 | **0.36** | 1.14 |
+| GPT-2 | **0.30** | 1.30 | **0.30** | 1.23 | **0.26** | 1.33 |
+| LaMini-124M | **0.28** | 1.01 | **0.35** | 1.00 | **0.30** | 1.15 |
+| LaMini-774M | **0.32** | 1.14 | **0.28** | 1.13 | **0.28** | 1.19 |
+</div>
 
 *Table: Root Mean Squared Error (RMSE) comparison between predicted and actual test losses ($\times 10^{-1}$) of our model and Rectified Scaling Law. Lower values indicate better prediction accuracy.*
 
-![Model Selection Comparison](Figure/model_selection_comparison_JL.png)  
+<div align="center">
+![Model Selection Comparison](Figure/model_selection_comparison_JL.png){width=70%}  
 *Figure: Comparison of model selection approaches. LENSLLM consistently identifies optimal models with higher accuracy and robustness compared to baseline methods.*
+</div>
 
-![Computational Efficiency](Figure/Revised_gigaword_plot.png)  
+<div align="center">
+![Computational Efficiency](Figure/Revised_gigaword_plot.png){width=70%}  
 *Figure: Resource efficiency on the Gigaword dataset. LENSLLM achieves comparable or better performance with substantially reduced computational cost.*
+</div>
+
 ---
 
 ### 📌 Key Takeaways
