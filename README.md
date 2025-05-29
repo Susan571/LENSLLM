@@ -1,4 +1,4 @@
-# <a href="https://arxiv.org/abs/2505.03793" style="color: black !important;">LENSLLM: Unveiling Fine-Tuning Dynamics for LLM Selection</a>
+# 🔬 <a href="https://arxiv.org/abs/2505.03793" style="color: black !important;">LENSLLM: Unveiling Fine-Tuning Dynamics for LLM Selection</a>
 
 **Xinyue Zeng¹**, **Haohui Wang¹**, **Junhong Lin²**, **Jun Wu³**, **Tyler Cody¹**, **Dawei Zhou¹**
 
@@ -9,19 +9,19 @@
 ## 📌 Abstract
 The proliferation of open-sourced Large Language Models (LLMs) and diverse downstream tasks necessitates efficient model selection, given the impracticality of fine-tuning all candidates due to computational constraints. Despite the recent advances in LLM selection, a fundamental research question largely remains nascent: *how can we model the dynamic behaviors of LLMs during fine-tuning, thereby enhancing our understanding of their generalization performance across diverse downstream tasks?*
 
-In this work, we propose a novel theoretical framework that provides a proper lens to assess the generalization capabilities of LLMs, thereby enabling accurate and efficient LLM selection for downstream applications. In particular, we first derive a **PAC-Bayesian Generalization Bound** that unveils the fine-tuning dynamics of LLMs and then introduce **LENSLLM**, a **Neural Tangent Kernel (NTK)-based Rectified Scaling Model** that enables accurate performance predictions across diverse tasks while maintaining computational efficiency. Extensive empirical results on **three large-scale benchmarks** demonstrate that our model achieves **up to 91.1% accuracy** and reduces **up to 88.5% computational cost** in LLM selection, outperforming five state-of-the-art methods.
+In this work, we propose a novel theoretical framework that provides a proper lens to assess the generalization capabilities of LLMs, thereby enabling accurate and efficient LLM selection for downstream applications. In particular, we first derive a **PAC-Bayesian Generalization Bound** that unveils the fine-tuning dynamics of LLMs and then introduce **LENSLLM**, a Neural Tangent Kernel (NTK)-based Rectified Scaling Model that enables accurate performance predictions across diverse tasks while maintaining computational efficiency. Extensive empirical results on three large-scale benchmarks demonstrate that our model achieves **up to 91.1% accuracy** and reduces **up to 88.5% computational cost** in LLM selection, outperforming five state-of-the-art methods.
 
 ## 🔍 Understanding Fine-tuning Dynamics for LLM Selection: Pre-power and Power Phases
 
 Our analysis reveals two distinct phases in LLM fine-tuning dynamics that are crucial for model selection. These phases exhibit fundamentally different behaviors in terms of model sensitivity, performance scaling, and NTK evolution:
 
+![Model Comparison](Figure/model_comparison.png)
+*Figure: Phase transition in fine-tuning test loss ($L$) scaling with training sample size ($D$). The data reveals a pre-power phase at small $D$, followed by the established power phase showing the linear correlation between $L$ and $D$.*
+
 | Phase | Description | Characteristics |
 |-------|-------------|-----------------|
 | **Pre-power Phase** | The initial stage of fine-tuning where models exhibit rapid performance improvements | • Models show high sensitivity to parameter updates<br>• Performance improvements are non-linear and often dramatic<br>• The NTK matrix undergoes significant changes<br>• Model behavior is highly dynamic and task-specific |
 | **Power Phase** | Emerges after the initial rapid improvements | • More stable and predictable performance scaling<br>• Linear or power-law relationship between data size and performance<br>• Stabilized NTK matrix structure<br>• More consistent behavior across different tasks |
-
-![Model Comparison](Figure/model_comparison.png)
-*Figure: Comparison of model selection approaches across different phases. Our LENSLLM framework demonstrates superior performance in both pre-power and power phases, with particularly strong results in the pre-power phase where traditional methods often struggle.*
 
 Understanding these phases is crucial for LLM selection because:
 1. Different models may enter the power phase at different data scales
@@ -35,24 +35,24 @@ Our LENSLLM framework explicitly models both phases, enabling more accurate perf
 
 Our theoretical analysis reveals a fundamental connection between these phases and model generalization through a novel PAC-Bayesian bound. For any $\epsilon > 0$, with probability over 0.99, under our established assumptions, the generalization error bound takes the form:
 
-$$L(f_{\hat{w}}) \leq (1 + \epsilon)\hat{L}(f_{\hat{w}}) + C_3 n^{-\beta_3} + O(n^{-\frac{3}{4}})$$
+$$L(f_{\hat{w}}) \leq (1 + \epsilon)\hat{L}(f_{\hat{w}}) + C n^{-\beta} + O(n^{-\frac{3}{4}})$$
 
-where $C_3 = \sqrt{C\cdot l \cdot C_2}$ and $\beta_3 = \frac{\beta_2+1}{2}$ are model and task-dependent constants.
+where $C$ and $\beta$ are model and task-dependent constants.
 
 This bound provides a theoretical foundation for understanding the two distinct phases of fine-tuning:
 
 | Phase | Error Scaling | Characteristics | Model Behavior | Data Requirements |
 |-------|--------------|-----------------|----------------|-------------------|
 | **Pre-power Phase** | $O(n^{-\frac{3}{4}})$ | • High Hessian values<br>• Significant parameter sensitivity<br>• Non-linear improvements | • Gradual performance improvements<br>• High sensitivity to updates<br>• Task-specific behavior | • Substantial data needed<br>• Careful tuning required<br>• More training iterations |
-| **Power Phase** | $C_3n^{-\beta_3}$ | • Reduced Hessian values<br>• Enhanced stability<br>• Linear/power-law scaling | • Stable performance scaling<br>• Consistent behavior<br>• Task-agnostic patterns | • Improved data efficiency<br>• More aggressive updates<br>• Fewer training iterations |
+| **Power Phase** | $Cn^{-\beta}$ | • Reduced Hessian values<br>• Enhanced stability<br>• Linear/power-law scaling | • Stable performance scaling<br>• Consistent behavior<br>• Task-agnostic patterns | • Improved data efficiency<br>• More aggressive updates<br>• Fewer training iterations |
 
 #### Phase Transition
 The transition between phases is mathematically captured by the change in dominant terms:
 - From $O(n^{-\frac{3}{4}})$ in pre-power phase
-- To $C_3n^{-\beta_3}$ in power phase
+- To $Cn^{-\beta}$ in power phase
 - This shift reflects the evolution of Hessian values and parameter sensitivity
 
-## Empirical Results
+## 📈 Empirical Results
 
 Our theoretical framework is validated through extensive experiments across multiple benchmarks and model architectures:
 
