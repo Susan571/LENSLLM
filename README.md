@@ -22,9 +22,11 @@ In this work, we propose a novel theoretical framework that provides a proper le
 Our analysis uncovers two distinct phases in the fine-tuning dynamics of Large Language Models (LLMs), each with unique implications for model selection. These phases—marked by shifts in sensitivity, performance scaling, and Neural Tangent Kernel (NTK) evolution—play a critical role in understanding and predicting model behavior.
 
 <div align="center">
+
 <img src="Figure/model_comparison.png" width="80%">
-<p><em>Figure: Fine-tuning test loss (L) as a function of training sample size (D). The curve highlights an initial pre-power phase at smaller D, followed by a power phase exhibiting a clear linear trend in log-log scale.</em></p>
 </div>
+
+*Figure: Fine-tuning test loss (L) as a function of training sample size (D). The curve highlights an initial pre-power phase at smaller D, followed by a power phase exhibiting a clear linear trend in log-log scale.*
 
 <div align="center">
 
@@ -95,9 +97,11 @@ This formulation allows LENSLLM to generalize well across data scales and model 
 We validate our theoretical framework through comprehensive experiments across a diverse set of language models and three major datasets. Our results demonstrate both the **predictive accuracy** and **efficiency gains** enabled by LENSLLM.
 
 <div align="center">
+
 <img src="Figure/combined_plots.png" width="90%">
-<p><em>Figure: Performance comparison showing the superior effectiveness of LENSLLM (blue squares) across OPT-1.3B, GPT-2, and T5-Base on the FLAN, Wikitext, and Gigaword datasets. LENSLLM consistently achieves lower RMSE values compared to the Rectified Scaling Law (red triangles), with narrower error bands indicating more stable performance.</em></p>
 </div>
+
+*Figure: Performance comparison showing the superior effectiveness of LENSLLM (blue squares) across OPT-1.3B, GPT-2, and T5-Base on the FLAN, Wikitext, and Gigaword datasets. LENSLLM consistently achieves lower RMSE values compared to the Rectified Scaling Law (red triangles), with narrower error bands indicating more stable performance.*
 
 <div align="center">
 
@@ -123,14 +127,18 @@ We validate our theoretical framework through comprehensive experiments across a
 *Table: Root Mean Squared Error (RMSE) comparison between predicted and actual test losses ($\times 10^{-1}$) of our model and Rectified Scaling Law. Lower values indicate better prediction accuracy.*
 
 <div align="center">
+
 <img src="Figure/model_selection_comparison_JL.png" width="70%">
-<p><em>Figure: Comparison of model selection approaches. LENSLLM consistently identifies optimal models with higher accuracy and robustness compared to baseline methods.</em></p>
 </div>
 
+*Figure: Comparison of model selection approaches. LENSLLM consistently identifies optimal models with higher accuracy and robustness compared to baseline methods.*
+
 <div align="center">
+
 <img src="Figure/Revised_gigaword_plot.png" width="70%">
-<p><em>Figure: Resource efficiency on the Gigaword dataset. LENSLLM achieves comparable or better performance with substantially reduced computational cost.</em></p>
 </div>
+
+*Figure: Resource efficiency on the Gigaword dataset. LENSLLM achieves comparable or better performance with substantially reduced computational cost.*
 
 ### 📌 Key Takeaways
 
