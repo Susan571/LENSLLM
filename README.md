@@ -11,13 +11,11 @@ The proliferation of open-sourced Large Language Models (LLMs) and diverse downs
 
 In this work, we propose a novel theoretical framework that provides a proper lens to assess the generalization capabilities of LLMs, thereby enabling accurate and efficient LLM selection for downstream applications. Our key contributions include:
 
-<div style="margin-left: 40px;">
-• Deriving a **PAC-Bayesian Generalization Bound** that unveils the fine-tuning dynamics of LLMs
+(1) Deriving a **PAC-Bayesian Generalization Bound** that unveils the fine-tuning dynamics of LLMs
 
-• Introducing **LENSLLM**, a Neural Tangent Kernel (NTK)-based Rectified Scaling Model that enables accurate performance predictions across diverse tasks while maintaining computational efficiency
+(2) Introducing **LENSLLM**, a Neural Tangent Kernel (NTK)-based Rectified Scaling Model that enables accurate performance predictions across diverse tasks while maintaining computational efficiency
 
-• Demonstrating through extensive empirical results on three large-scale benchmarks that our model achieves **up to 91.1% accuracy** and reduces **up to 88.5% computational cost** in LLM selection, outperforming five state-of-the-art methods
-</div>
+(3) Demonstrating through extensive empirical results on three large-scale benchmarks that our model achieves **up to 91.1% accuracy** and reduces **up to 88.5% computational cost** in LLM selection, outperforming five state-of-the-art methods
 
 ## 🔍 Understanding Phase Transitions in LLM Fine-tuning
 
@@ -28,14 +26,14 @@ Our analysis uncovers two distinct phases in the fine-tuning dynamics of Large L
 
 | **Phase**          | **Description**                                     | **Key Characteristics**                                                                 |
 |--------------------|-----------------------------------------------------|------------------------------------------------------------------------------------------|
-| **Pre-power Phase** | Early stage of fine-tuning with rapid performance shifts | • High sensitivity to parameter updates  
-• Non-linear, often dramatic improvement  
-• Significant NTK matrix evolution  
-• Behavior is dynamic and task-dependent |
-| **Power Phase**     | Later stage where performance scales predictably      | • Stable and predictable performance improvements  
-• Power-law relationship between data size and loss  
-• Stabilized NTK structure  
-• Consistent trends across tasks |
+| **Pre-power Phase** | Early stage of fine-tuning with rapid performance shifts | - High sensitivity to parameter updates  
+- Non-linear, often dramatic improvements  
+- Significant NTK matrix evolution  
+- Dynamic and task-specific behavior |
+| **Power Phase**     | Later stage where performance scales predictably      | - Stable and predictable performance improvements  
+- Power-law relationship between data size and loss  
+- Stabilized NTK structure  
+- Consistent behavior across tasks |
 
 ### Why This Matters for Model Selection
 
