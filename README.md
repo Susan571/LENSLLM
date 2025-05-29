@@ -22,7 +22,7 @@ In this work, we propose a novel theoretical framework that provides a proper le
 Our analysis uncovers two distinct phases in the fine-tuning dynamics of Large Language Models (LLMs), each with unique implications for model selection. These phases—marked by shifts in sensitivity, performance scaling, and Neural Tangent Kernel (NTK) evolution—play a critical role in understanding and predicting model behavior.
 
 <div align="center">
-<img src="Figure/model_comparison.png" width="90%">
+<img src="Figure/model_comparison.png" width="80%">
 <p><em>Figure: Fine-tuning test loss (L) as a function of training sample size (D). The curve highlights an initial pre-power phase at smaller D, followed by a power phase exhibiting a clear linear trend in log-log scale.</em></p>
 </div>
 
@@ -123,16 +123,14 @@ We validate our theoretical framework through comprehensive experiments across a
 *Table: Root Mean Squared Error (RMSE) comparison between predicted and actual test losses ($\times 10^{-1}$) of our model and Rectified Scaling Law. Lower values indicate better prediction accuracy.*
 
 <div align="center">
-<img src="Figure/model_selection_comparison_JL.png" width="80%">
+<img src="Figure/model_selection_comparison_JL.png" width="70%">
 <p><em>Figure: Comparison of model selection approaches. LENSLLM consistently identifies optimal models with higher accuracy and robustness compared to baseline methods.</em></p>
 </div>
 
 <div align="center">
-<img src="Figure/Revised_gigaword_plot.png" width="80%">
+<img src="Figure/Revised_gigaword_plot.png" width="70%">
 <p><em>Figure: Resource efficiency on the Gigaword dataset. LENSLLM achieves comparable or better performance with substantially reduced computational cost.</em></p>
 </div>
-
----
 
 ### 📌 Key Takeaways
 
