@@ -1,4 +1,4 @@
-# <a href="https://arxiv.org/abs/2505.03793" style="color: black !important;">[ICML 2025]LENSLLM: Unveiling Fine-Tuning Dynamics for LLM Selection🎉🎉🎉</a>
+# <a href="https://arxiv.org/abs/2505.03793" style="color: black !important;">LENSLLM: Unveiling Fine-Tuning Dynamics for LLM Selection[ICML 2025]🎉🎉🎉</a>
 
 **Xinyue Zeng¹**, **Haohui Wang¹**, **Junhong Lin²**, **Jun Wu³**, **Tyler Cody¹**, **Dawei Zhou¹**
 
