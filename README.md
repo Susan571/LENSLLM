@@ -26,10 +26,13 @@ Our analysis uncovers two distinct phases in the fine-tuning dynamics of Large L
 <p><em>Figure: Fine-tuning test loss (L) as a function of training sample size (D). The curve highlights an initial pre-power phase at smaller D, followed by a power phase exhibiting a clear linear trend in log-log scale.</em></p>
 </div>
 
-| **Phase** | **Description** | **Key Characteristics** |
+<div align="center">
+
+| Phase | Description | Key Characteristics |
 |:----------|:----------------|:------------------------|
 | **Pre-power Phase** | Early stage of fine-tuning with rapid performance shifts | • High sensitivity to parameter updates<br>• Non-linear, often dramatic improvements<br>• Significant NTK matrix evolution<br>• Dynamic and task-specific behavior |
 | **Power Phase** | Later stage where performance scales predictably | • Stable and predictable performance improvements<br>• Power-law relationship between data size and loss<br>• Stabilized NTK structure<br>• Consistent behavior across tasks |
+</div>
 
 ### Why This Matters for Model Selection
 
@@ -53,10 +56,13 @@ Here, $C$ and $\beta$ are constants that depend on the model architecture and do
 
 This bound serves as the theoretical basis for characterizing the **two distinct phases** observed during LLM fine-tuning:
 
-| **Phase** | **Error Scaling** | **Key Characteristics** | **Model Behavior** | **Data Requirements** |
+<div align="center">
+
+| Phase | Error Scaling | Key Characteristics | Model Behavior | Data Requirements |
 |:----------|:-----------------|:------------------------|:-------------------|:---------------------|
 | **Pre-power Phase** | $O(n^{-\frac{3}{4}})$ | • Large Hessian values<br>• High sensitivity to parameter changes<br>• Non-linear performance gains | • Gradual improvements<br>• Task-dependent variability<br>• Unstable convergence patterns | • Requires more data<br>• Sensitive to hyperparameters<br>• Slower convergence |
 | **Power Phase** | $Cn^{-\beta}$ | • Lower Hessian values<br>• Stabilized gradients<br>• Predictable scaling behavior | • Consistent improvements<br>• Task-agnostic trends<br>• Scalable performance across data regimes | • Greater data efficiency<br>• Robust to learning rate choices<br>• Fewer training epochs needed |
+</div>
 
 ### 🔄 Phase Transition Dynamics and the LENSLLM Framework
 
