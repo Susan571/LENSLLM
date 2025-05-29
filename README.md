@@ -95,8 +95,8 @@ We validate our theoretical framework through comprehensive experiments across a
 
 <div align="center">
 
-| Model | Wikitext | | FLAN | | Gigaword | |
-|:------|:--------:|:--------:|:--------:|:--------:|:--------:|:--------:|
+| Model | Wikitext | FLAN | Gigaword |
+|:----------|:------------:|:--------:|:------------:|
 | | Ours | Rect | Ours | Rect | Ours | Rect |
 | OPT-350M | **0.20** | 1.10 | **0.32** | 1.50 | **0.26** | 0.98 |
 | OPT-1.3B | **0.32** | 1.14 | **0.32** | 1.20 | **0.28** | 0.99 |
